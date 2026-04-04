@@ -20,7 +20,8 @@ services:
     command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - db
-
+    env_file:
+      - .env
     ports:
       - "8000:8000"
 
@@ -30,7 +31,8 @@ services:
       network: host
 
     restart: always
-
+    env_file:
+      - .env
     ports:
       - "80:80"
     depends_on:

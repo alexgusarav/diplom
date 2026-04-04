@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'cloud_db',
         'USER': 'postgres',
         'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
