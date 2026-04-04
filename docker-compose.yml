@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_DB=cloud_db
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=12345
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   backend:
     build:
@@ -16,7 +16,9 @@ services:
     restart: always
     volumes:
       - ./user_files:/app/user_files
-
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
     command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - db
@@ -29,7 +31,8 @@ services:
     build:
       context: ./frontend
       network: host
-
+      args:
+        - VITE_KEY_REDUX=${VITE_KEY_REDUX}
     restart: always
     env_file:
       - .env
