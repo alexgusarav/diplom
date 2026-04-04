@@ -3,11 +3,12 @@ import { persistStore, persistReducer} from 'redux-persist'
 import { encryptTransform } from 'redux-persist-transform-encrypt'
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
-import rootReducer from './reducers'; 
+import rootReducer from './reducers';
+const reduxKey = import.meta.env.VITE_KEY_REDUX; 
 
 //encrypt localStorage root
 const encryptor = encryptTransform({
-  secretKey: 'a6dd65cf9ed618803736778e77e379c9',
+  secretKey: reduxKey,
   onError: function (error) {
     console.log(error);
   },

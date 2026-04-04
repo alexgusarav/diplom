@@ -23,6 +23,7 @@ from django.middleware.csrf import get_token
 from django.contrib.sessions.models import Session
 from django.core.files.storage import FileSystemStorage
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 # csrf token для запросов POST/PUT/DELETE
 @ensure_csrf_cookie
@@ -56,7 +57,7 @@ def get_client_ip(request):
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
-        print(request.data)
+        logger.info(f'[INFO] Getted a request for registering user with the data {request.data}')
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user_instance = serializer.save()
@@ -71,8 +72,6 @@ class RegisterView(APIView):
 
             # return JsonResponse({"success": f"Username {request.data['username']} was created and logged in!", "data": {user_instance}}, status=201)
             return Response(data=response_data, status=201)
-        #username = request.data.get('name')
-        #print(f'{username}')
 
         else:
             logger.info(f'[INFO] Getted a request for registering user from IP {get_client_ip(request)}')
@@ -167,10 +166,9 @@ class AdminFilesZone(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        print(f"[info] User with id={user_id} retrive files.")
+        logger.info(f"[info] User with id={user_id} retrive files.")
         queryset = Storage.objects.filter(owner_id=user_id).order_by('-uploaded_at')
         serializer = self.get_serializer(queryset, many=True)
-        print(queryset)
         return Response(serializer.data)
 
     def list(self, request):
@@ -179,7 +177,7 @@ class AdminFilesZone(viewsets.ModelViewSet):
         if user_id:
             queryset = Storage.objects.all().order_by('-uploaded_at')
             serializer = StorageSerializer(queryset, many=True)
-            print(f"[info] User with id={user_id} is requested all files.")
+            logger.info(f"[info] User with id={user_id} is requested all files.")
         else:
             Response({'error':'Сессия пользователя не найдена.'})
         return Response(serializer.data)
@@ -205,8 +203,8 @@ class UserFilesView(viewsets.ModelViewSet):
         return response
 
     def create(self, request, *args, **kwargs):
-        print(f"DEBUGGING request.data: {request.data}")
-        print(f"DEBUGGING request.FILES: {request.FILES}")
+        logger.info(f"DEBUGGING request.data: {request.data}")
+        logger.info(f"DEBUGGING request.FILES: {request.FILES}")
         # вызываем стандартную логику perform_create через serializer.save()
         return super().create(request, *args, **kwargs)
 

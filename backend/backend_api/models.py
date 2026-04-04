@@ -16,9 +16,6 @@ def get_secret_name():
     my_uuid = uuid.uuid4()
     return str(my_uuid)
 
-def get_original_name(instance, filename):
-    pass
-
 # Создаем модель для хранения файлов.
 class Storage(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='files')

@@ -36,9 +36,8 @@ function AdminUserFiles() {
           console.log('[FileStorage.jsx] fetch files data:',data)
           setUserFiles(data); // Ожидается массив объектов файлов
         } catch (err) {
-        } finally {
-    
-        }
+          console.log(err.message);
+        } 
       };
     
     useEffect(() => {
@@ -74,6 +73,28 @@ function AdminUserFiles() {
       alert(err.message);
     }
   };
+  const handleDownload = async (e, file_id, file_name) => {
+      e.preventDefault(); 
+      try {
+        const response = await downloadFile(file_id);
+      if(!response.ok) {
+        throw new Error('Ошибка загрузки файла.')
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href =url;
+      link.setAttribute('download',`${file_name}`)
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.log('Ошибка загрузки файла', error)
+      } finally {
+        fetchUserFiles(id);
+      }
+    }
 
     return (
         <React.Fragment>

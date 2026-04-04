@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +47,7 @@ LOGGING = {
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)ksp&r8v(+f72o4c6nacd7rz+gys5nkcq@4b6=sb3qcu5dij-u'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -108,8 +111,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cloud_db',
         'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': 'db',
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

@@ -31,10 +31,8 @@ const fetchUsers = async () => {
       console.log('[FileStorage.jsx] fetch files data:',data)
       setUsers(data); // Ожидается массив объектов файлов
     } catch (err) {
-
-    } finally {
-
-    }
+      console.log(err.message);
+    } 
   };
 
 useEffect(() => {
@@ -44,7 +42,7 @@ useEffect(() => {
 
 
     //helper для обновления данных.
-const refreshUsers = () => queryClient.invalidateQueries(['users']);
+// const refreshUsers = () => queryClient.invalidateQueries(['users']);
 
 //обработчик при редактировании пользователя.
 
@@ -73,7 +71,7 @@ const onClose = () => {
       console.log("Данные успешно обновлены!");
       //закрываем модальное окно и перезагружаем файлы.
       onClose();
-      refreshUsers();
+      fetchUsers();
     } else {
       console.log("Ошибка при сохранении файла.")
     }
@@ -100,7 +98,7 @@ const onSaveNewUser = async (userData) => {
       console.log("Данные успешно обновлены!");
       //закрываем модальное окно и перезагружаем файлы.
       onCloseNewUser();
-      refreshUsers();
+      fetchUsers();
     } else {
       console.log("Ошибка при добавлении пользователя.")
     }
@@ -160,7 +158,7 @@ const handlerFiles = (username, user_id) => {
         countFiles={user?.count}
         sizeFiles={user?.size}
         isSuper={user.is_superuser}
-        refreshUsers={refreshUsers}
+        refreshUsers={fetchUsers}
         handlerEdit={handlerEdit}
         handlerFiles={handlerFiles}
         />

@@ -47,3 +47,4 @@ settings_local.py
 
 files/
 user_files/
+.env
