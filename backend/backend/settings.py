@@ -13,6 +13,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.utils.deprecation import MiddlewareMixin
+
+# Add custom headers to response drf Access-Control-Allow-Origin
+class CustomHeaderMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        request.META['Access-Control-Allow-Origin'] = 'http://89.111.155.208'
 
 load_dotenv()
 
@@ -52,7 +58,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '89.111.155.208']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '89.111.155.208', 'backend']
 
 
 # Application definition
@@ -79,7 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    'backend.settings.CustomHeaderMiddleware'
 
 ]
 
@@ -196,7 +202,7 @@ CORS_ALLOW_CREDENTIALS = True
 # Разрешаем любые CORS запросы. (не рекомендуется для продакшена)
 CORS_ALLOW_ALL_ORIGINS = True
 SECURE_CROSS_ORIGIN_OPENER_POLICY=None
-CORS_ALLOW_METHODS = [ 'GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+CORS_ALLOW_METHODS = [ 'GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 
 # для скачивания файлов.
 CORS_EXPOSE_HEADERS = ['Content-Disposition']

@@ -30,18 +30,23 @@ function RegisterForm() {
       <h1>Register for an Account</h1>
       <form onSubmit={handlerSubmit} >
         <label htmlFor="username">Username:</label>
+        <br />
         <input type="text" id="username" name="username" value={formData.username} onChange={handlerChange} required/>
         <br />
         <label htmlFor="email">Email:</label>
+        <br />
         <input type="email" id="email" name="email" value={formData.email} onChange={handlerChange} required/>
         <br />
         <label htmlFor="password">Password:</label>
+        <br />
         <input type="password" id="password" name="password" value={formData.password} onChange={handlerChange} required/>
         <br />
         <label htmlFor="first_name">Your name:</label>
+        <br />
         <input type="text" id="first_name" name="first_name" value={formData.first_name} onChange={handlerChange} required />
         <br />
           <label htmlFor="last_name">You last name:</label>
+          <br />
         <input type="text" id="last_name" name="last_name" value={formData.last_name} onChange={handlerChange} required />
         <br />
         <button type="submit">Register</button>
