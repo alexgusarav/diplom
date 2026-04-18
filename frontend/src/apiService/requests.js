@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 //registration request.
-const HOST_URL = 'http://89.111.155.208:8000';
+const HOST_URL = 'http://130.49.151.10:8000';
 
 export function get_csrf_token() {
     return fetch(`${HOST_URL}/api/get-csrf/`)

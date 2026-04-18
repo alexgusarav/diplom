@@ -18,7 +18,7 @@ from django.utils.deprecation import MiddlewareMixin
 # Add custom headers to response drf Access-Control-Allow-Origin
 class CustomHeaderMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        request.META['Access-Control-Allow-Origin'] = 'http://89.111.155.208'
+        request.META['Access-Control-Allow-Origin'] = 'http://130.49.151.10'
 
 load_dotenv()
 
@@ -58,7 +58,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '89.111.155.208', 'backend']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '130.49.151.10', 'backend']
 
 
 # Application definition
@@ -180,7 +180,7 @@ CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = False
 
 # Домены, которым мы доверяем
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000','http://localhost:5173','http://127.0.0.1:5173', 'http://89.111.155.208']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000','http://localhost:5173','http://127.0.0.1:5173', 'http://130.49.151.10']
 
 
 # Разрешаем межсайтовые запросы для домена, на котором находится React приложение
@@ -188,7 +188,7 @@ CORS_ALLOWED_ORIGINS = [
   'http://localhost:8000',
   'http://127.0.0.1:3000',
   'http://127.0.0.1:5173',
-  'http://89.111.155.208'
+  'http://130.49.151.10'
 ]
 
 # Разрешаем заголовки для межсайтовых запросов
